@@ -2,16 +2,17 @@
 
 import 'package:flutter/material.dart';
 
-class DialogText extends StatefulWidget {
+class CreateTaskDialog extends StatefulWidget {
   final Function() funcao;
   final TextEditingController controller;
-  const DialogText({super.key, required this.funcao, required this.controller});
+  const CreateTaskDialog(
+      {super.key, required this.funcao, required this.controller});
 
   @override
-  _DialogTextState createState() => _DialogTextState();
+  _CreateTaskDialogState createState() => _CreateTaskDialogState();
 }
 
-class _DialogTextState extends State<DialogText> {
+class _CreateTaskDialogState extends State<CreateTaskDialog> {
   _textoTerminado() {
     widget.funcao();
     Navigator.of(context).pop();
