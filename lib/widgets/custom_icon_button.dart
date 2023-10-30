@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class CustomIconButton extends StatefulWidget {
   final IconData icon;
-  final Function() funcao;
+  final Function(String) funcao;
   final bool isDisabled;
 
   const CustomIconButton({
@@ -77,7 +77,9 @@ class _CustomIconButtonState extends State<CustomIconButton>
           ? SystemMouseCursors.click
           : SystemMouseCursors.basic,
       child: GestureDetector(
-        onTap: widget.isDisabled == false ? widget.funcao : () => {},
+        onTap: widget.isDisabled == false
+            ? () => widget.funcao(widget.key.toString())
+            : () => {},
         child: widget.isDisabled == false
             ? AnimatedBuilder(
                 animation: _animationController,
