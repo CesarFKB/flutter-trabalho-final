@@ -11,9 +11,13 @@ class App extends StatefulWidget {
 class _AppState extends State<App> {
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
+      theme: ThemeData(
+        primaryColor: Colors.deepPurple,
+        primarySwatch: Colors.deepPurple,
+      ),
       title: "To-Do List",
-      home: HomePage(),
+      home: const HomePage(),
     );
   }
 }

@@ -5,10 +5,12 @@ class TaskContainer extends StatefulWidget {
   bool isDisabled;
   final String name;
   final Function(String) funcaoDelete;
+  bool isCompleted;
   TaskContainer(
       {super.key,
       required this.name,
       this.isDisabled = false,
+      this.isCompleted = false,
       required this.funcaoDelete});
 
   @override
@@ -32,7 +34,7 @@ class _TaskContainerState extends State<TaskContainer> {
         ],
       ),
       child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-        const Expanded(
+        Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -41,13 +43,21 @@ class _TaskContainerState extends State<TaskContainer> {
                 style: TextStyle(
                   fontSize: 24.0,
                   fontWeight: FontWeight.bold,
+                  color: widget.isCompleted ? Colors.grey[400] : Colors.black,
+                  decoration: widget.isCompleted
+                      ? TextDecoration.lineThrough
+                      : TextDecoration.none,
                 ),
                 overflow: TextOverflow.ellipsis,
               ),
-              SizedBox(height: 8.0),
+              const SizedBox(height: 8.0),
               Text(
                 'Teste Inline',
                 style: TextStyle(
+                  color: widget.isCompleted ? Colors.grey[400] : Colors.black,
+                  decoration: widget.isCompleted
+                      ? TextDecoration.lineThrough
+                      : TextDecoration.none,
                   fontSize: 16.0,
                 ),
                 overflow: TextOverflow.ellipsis,
@@ -58,8 +68,12 @@ class _TaskContainerState extends State<TaskContainer> {
         CustomIconButton(
           key: Key("${widget.key}_1"),
           isDisabled: widget.isDisabled,
-          icon: Icons.done,
-          funcao: (e) => print("Done"),
+          isCompleted: widget.isCompleted,
+          icon: widget.isCompleted
+              ? Icons.check_box
+              : Icons.check_box_outline_blank,
+          funcao: (e) =>
+              setState(() => widget.isCompleted = !widget.isCompleted),
         ),
         const SizedBox(width: 16.0),
         CustomIconButton(

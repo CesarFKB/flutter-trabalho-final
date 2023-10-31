@@ -4,12 +4,14 @@ class CustomIconButton extends StatefulWidget {
   final IconData icon;
   final Function(String) funcao;
   final bool isDisabled;
+  final bool isCompleted;
 
   const CustomIconButton({
     Key? key,
     required this.icon,
     required this.funcao,
     this.isDisabled = false,
+    this.isCompleted = false,
   }) : super(key: key);
 
   @override
@@ -22,8 +24,6 @@ class _CustomIconButtonState extends State<CustomIconButton>
   late Animation<double> _scaleAnimation;
   late Animation<Color?> _colorAnimation;
   bool _hover = false;
-
-  set isDisabled(bool value) => widget.isDisabled;
 
   @override
   void initState() {
@@ -77,27 +77,25 @@ class _CustomIconButtonState extends State<CustomIconButton>
           ? SystemMouseCursors.click
           : SystemMouseCursors.basic,
       child: GestureDetector(
-        onTap: widget.isDisabled == false
-            ? () => widget.funcao(widget.key.toString())
-            : () => {},
-        child: widget.isDisabled == false
-            ? AnimatedBuilder(
-                animation: _animationController,
-                builder: (context, child) {
-                  return Transform.scale(
-                    scale: _scaleAnimation.value,
-                    child: Icon(
-                      widget.icon,
-                      color: _colorAnimation.value,
-                    ),
-                  );
-                },
-              )
-            : Icon(
-                widget.icon,
-                color: _colorAnimation.value,
-              ),
-      ),
+          onTap: widget.isDisabled == false
+              ? () => widget.funcao(widget.key.toString())
+              : () => {},
+          child: widget.isDisabled == false
+              ? AnimatedBuilder(
+                  animation: _animationController,
+                  builder: (context, child) {
+                    return Transform.scale(
+                        scale: _scaleAnimation.value,
+                        child: Icon(
+                          widget.icon,
+                          color: _colorAnimation.value,
+                        ));
+                  },
+                )
+              : Icon(
+                  widget.icon,
+                  color: _colorAnimation.value,
+                )),
     );
   }
 }
